@@ -54,7 +54,7 @@ export default {
           dialogFormVisible = false;
           this.$message({
             type: 'success',
-            message: '提交成功',
+            message: '提交成功 ',
           });
         } else {
           console.log('error submit!!');
