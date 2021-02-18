@@ -18,7 +18,34 @@
         :lock-scroll="false"
         width="40%"
       >
-        <Login></Login>
+       <el-form label-width="120px" :model="user" :rules="rules" ref="user" >
+        <el-row>
+          <el-col>
+            <el-form-item label="账号" prop="name">
+              <el-input v-model="user.name"  placeholder="请输入账号"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col>
+            <el-form-item label="密码" prop="pass">
+              <el-input type="password" v-model="user.pass"  placeholder="请输入密码"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col>
+            <el-form-item label="记住密码" prop="delivery">
+              <el-switch v-model="user.delivery"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit('ruleForm')">立即创建</el-button>
+          </el-form-item>
+      </el-form>
+
+        
       </el-dialog>
       <span v-show="hasLogin"><el-link type="danger" @click="logout">退出</el-link></span>
     </div>
@@ -26,14 +53,34 @@
 </template>
 
 <script>
-import Login from '../components/Login.vue';
 export default {
-  components: { Login },
   name: 'Header',
   data() {
+    var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          callback();
+        }
+      };
     return {
       dialogFormVisible: false,
       hasLogin: false,
+      user: {
+        name: '',
+        pass: '',
+        delivery: false
+      },
+       rules: {
+          name: [
+            { required: true, message: '请输入账号', trigger: 'blur' },
+            { min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur' }
+          ],
+          pass: [
+            { validator: validatePass, trigger: 'blur' }
+          ]
+        },
+      formLabelWidth: '120px',
     };
   },
   methods: {
@@ -52,9 +99,18 @@ export default {
     login() {
       this.dialogFormVisible = true;
     },
+    onSubmit(user) {
+      this.$refs.user.validate((valid) => {
+        if (valid) {
+          this.dialogFormVisible = false;
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    }
   },
   created() {
-    this.hasLogin = false;
     /* if(this.$store.getters.getUser.username) {
         this.user.username = this.$store.getters.getUser.username
         this.user.avatar = this.$store.getters.getUser.avatar

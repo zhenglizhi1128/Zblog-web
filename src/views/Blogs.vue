@@ -5,15 +5,15 @@
         <el-timeline-item
           :timestamp="blog.createTime | dateformat('YYYY-MM-DD')"
           placement="top"
-          v-for="blog in blogs"
+          v-for="(blog,index) in blogs"
+          :key="index"
         >
           <el-card>
-            
-            <el-link :underline="false"   @click="detail(blog.id)" >
-            <h4>{{ blog.title}}</h4>
+            <el-link :underline="false" @click="detail(blog.id)">
+              <h4>{{ blog.title }}</h4>
             </el-link>
-          
-            <el-link :underline="false"   @click="detail(blog.id)" >
+
+            <el-link :underline="false" @click="detail(blog.id)">
               <p>{{ blog.description }}</p>
             </el-link>
             <p>{{ blog.createTime | dateformat('YYYY-MM-DD HH:mm:ss') }}</p>
@@ -64,8 +64,8 @@ export default {
         });
     },
     detail(blogId) {
-        const new1 = this.$router.resolve({name: 'BlogDetail',params: {blogId: blogId}})
-        window.open(new1.href,'_blank')
+      const new1 = this.$router.resolve({ name: 'BlogDetail', params: { blogId: blogId } });
+      window.open(new1.href, '_blank');
     },
   },
   created() {
