@@ -78,7 +78,6 @@ import 'mavon-editor/dist/markdown/github-markdown.min.css'
     },
     created() {
       const blogId = this.$route.params.blogId
-      console.log(blogId)
       if(blogId) {
         this.$axios.get('/blog/blog',{
           params: {
@@ -89,7 +88,7 @@ import 'mavon-editor/dist/markdown/github-markdown.min.css'
           this.ruleForm.id = blog.id
           this.ruleForm.title = blog.title
           this.ruleForm.description = blog.description
-          this.ruleForm.content = blog.content
+          this.ruleForm.content = blog.blogContent.content
         })
       } 
 

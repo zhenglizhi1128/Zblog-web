@@ -47,6 +47,26 @@ const routes = [
       title:"编辑博客",
      requireAuth: true
     }
+  },
+  {
+    path: '/system',
+    name: 'SystemSetting',
+    component: () => import('../views/SystemSetting.vue'),
+    meta: {
+      title:"系统设置",
+     requireAuth: true
+    },
+    children: [
+			{
+				path: '/labelset',
+				name: 'LabelSet',
+				meta: {
+					title: "标签管理",
+          requireAuth: true
+				},
+				component: () => import('../views/systeam/LabelSet.vue'),
+			}
+		] 
   } 
 ]
 
