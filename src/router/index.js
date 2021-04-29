@@ -50,8 +50,8 @@ const routes = [
   },
   {
     path: '/system',
-    name: 'SystemSetting',
-    component: () => import('../views/SystemSetting.vue'),
+    name: 'System',
+    component: () => import('../views/System.vue'),
     meta: {
       title:"系统设置",
      requireAuth: true

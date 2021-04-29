@@ -33,7 +33,7 @@
 </template>
 <script>
 export default {
-  name: "SystemSetting.vue",
+  name: "System.vue",
   data() {
     return {};
   },
