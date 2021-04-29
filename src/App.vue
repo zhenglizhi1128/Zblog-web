@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-  <el-header height="80px"><Header></Header></el-header>
+  <el-header height="120px"><Header></Header></el-header>
 
   <el-main>
     <router-view />

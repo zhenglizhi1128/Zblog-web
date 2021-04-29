@@ -10,7 +10,7 @@
       <span><el-link type="success" href="/blog/add">发表博客</el-link></span>
 
       <el-divider direction="vertical"></el-divider>
-      <el-button size="small" round @click="login()">{{ user.username }}</el-button>
+       <el-button v-show="!hasLogin" size="small" round @click="login()">登录</el-button>
       <el-dialog
         title="登录"
         :visible.sync="dialogFormVisible"
@@ -101,14 +101,16 @@ export default {
     onSubmit(LoginRequest) {
        this.$refs.LoginRequest.validate((valid) => {
         if (valid) {
-          this.$axios.post('/login', this.LoginRequest).then(res => {
+          this.$axios.post('/api/auth/login', this.LoginRequest).then(res => {
             if (res.data.code  === 200 ){
-              dialogFormVisible = false;
-              $store.commit("SET_TOKEN", res.data.data.tokenType+" "+res.data.data.token)
-              $store.commit("SET_USERINFO", res.data.data)
-              $router.push("/blogs")
+              this.dialogFormVisible = false;
+              this.$store.commit("SET_TOKEN", res.data.data.tokenType+" "+res.data.data.token);
+              this.$store.commit("SET_USERINFO", res.data.data);
+              this.user.username = res.data.data.username;
+              this.hasLogin = true;
+              this.$router.push("/blogs");
             }else{
-              $message.error("你的用户名或者密码错误!")
+              $message.error("你的用户名或者密码错误!");
               return false;
             }
             })
