@@ -1,8 +1,7 @@
 <template>
   <div class="m-content">
-    <h3>欢迎来到我的博客</h3>
     <div class="block">
-      <div>{{ user.username }}</div>
+      <div></div>
     </div>
     <div class="maction">
       <span><el-link href="/blogs">主页</el-link></span>
@@ -44,7 +43,7 @@
           </el-row>
           <el-form-item>
             <el-button type="primary" @click="onSubmit(LoginRequest)">立即创建</el-button>
-          </el-form-item>
+     </el-form-item>
         </el-form>
       </el-dialog>
       <span v-show="hasLogin"><el-link type="danger" @click="logout">退出</el-link></span>
