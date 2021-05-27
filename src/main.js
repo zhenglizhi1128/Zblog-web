@@ -1,14 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import './plugins/element.js'
-import moment from 'moment'
-import axios from 'axios'
-import Element from 'element-ui'
-import './axios.js'
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
+import Vue from "vue"
+import App from "./App.vue"
+import router from "./router"
+import store from "./store"
+import "./plugins/element.js"
+import moment from "moment"
+import axios from "axios"
+import http from "./utils/http.js"
+import Element from "element-ui"
+import "./axios.js"
+import mavonEditor from "mavon-editor"
+import "mavon-editor/dist/css/index.css"
 
 
 import "element-ui/lib/theme-chalk/index.css"
@@ -17,6 +18,7 @@ Vue.use(Element)
 Vue.use(mavonEditor)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.$http = http
 // 根据路由设置标题
 router.beforeEach((to, from, next) => {
   if(to.meta.title) {
