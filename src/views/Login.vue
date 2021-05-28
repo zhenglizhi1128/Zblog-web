@@ -48,17 +48,17 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     const _this = this
-                    this.$axios.post("/api/auth/login", this.ruleForm).then(res => {
+                    this.$axios.post("/api/auth/login", this.ruleForm).then((res) => {
 
-                        console.log(res.data)
-                        const jwt = res.headers["authorization"]
-                        const userInfo = res.data.data
+						console.log(res.data)
+						const jwt = res.headers["authorization"]
+						const userInfo = res.data.data
 
-                        // 把数据共享出去
-                        _this.$store.commit("SET_TOKEN", jwt)
-                        _this.$store.commit("SET_USERINFO", userInfo)
+						// 把数据共享出去
+						_this.$store.commit("SET_TOKEN", jwt)
+						_this.$store.commit("SET_USERINFO", userInfo)
 
-                        // 获取
+						// 获取
                         console.log(_this.$store.getters.getUser)
 
                         _this.$router.push("/blogs")

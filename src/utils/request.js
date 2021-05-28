@@ -21,7 +21,7 @@ service.interceptors.request.use(
             })
         }
 
-        if (request.method == "post") {
+        if (request.method === "post") {
             request.headers["Content-Type"] = "application/json;charset=UTF-8"
             for (var key in request.data) {
                 if (request.data[key] === "") {
@@ -35,8 +35,10 @@ service.interceptors.request.use(
             request.data = JSON.stringify(request.data)
         }
         const token = localStorage.getItem("token")
+        console.log("token")
+        console.log(token)
         if (token) {
-            config.headers["Authorization"] = token
+            request.headers["Authorization"] = token
         }
         return request
     },
@@ -68,9 +70,6 @@ service.interceptors.response.use(
                 Message.error("服务器响应超时，请刷新当前页")
             }
             error.message = "连接服务器失败"
-        }
-        if (error.response.code === 2002) {
-            Element.Message.error(error.message, {duration: 3 * 1000})
         }
         Element.Message.error(error.message, {duration: 3 * 1000})
         return Promise.reject(error)
