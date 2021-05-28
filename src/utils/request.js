@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Loading, Message } from "element-ui"
+import {Loading, Message} from "element-ui"
 
 const service = axios.create({
     baseURL: "http://localhost:8090", // 本地做反向代理
@@ -55,7 +55,7 @@ service.interceptors.response.use(
         if (res.code === 200) {
             return Promise.resolve(res)
         } else {
-            Message.error(res.message, { duration: 3 * 1000 })
+            Message.error(res.message, {duration: 3 * 1000})
             return Promise.reject(res.message)
         }
     },
@@ -70,9 +70,9 @@ service.interceptors.response.use(
             error.message = "连接服务器失败"
         }
         if (error.response.code === 2002) {
-            Element.Message.error(error.message, { duration: 3 * 1000 })
+            Element.Message.error(error.message, {duration: 3 * 1000})
         }
-        Element.Message.error(error.message, { duration: 3 * 1000 })
+        Element.Message.error(error.message, {duration: 3 * 1000})
         return Promise.reject(error)
     }
 )

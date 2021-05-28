@@ -21,19 +21,19 @@ Vue.prototype.$axios = axios
 Vue.prototype.$http = http
 // 根据路由设置标题
 router.beforeEach((to, from, next) => {
-  if(to.meta.title) {
-    document.title = to.meta.title;
-  }
-  next();
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    }
+    next();
 })
 
-Vue.filter('dateformat',(value,format)=>{
-  return moment(value).format(format || 'YYYY-MM-DD HH:mm:ss');
+Vue.filter('dateformat', (value, format) => {
+    return moment(value).format(format || 'YYYY-MM-DD HH:mm:ss');
 });
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
 
 
