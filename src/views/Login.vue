@@ -51,17 +51,17 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             const _this = this
-            this.$axios.post('/login', this.ruleForm).then(res => {
+            this.$axios.post("/api/auth/login", this.ruleForm).then(res => {
 
-              console.log(res.data)
-              const jwt = res.headers['authorization']
-              const userInfo = res.data.data
+				console.log(res.data)
+				const jwt = res.headers["authorization"]
+				const userInfo = res.data.data
 
-              // 把数据共享出去
-              _this.$store.commit("SET_TOKEN", jwt)
-              _this.$store.commit("SET_USERINFO", userInfo)
+				// 把数据共享出去
+				_this.$store.commit("SET_TOKEN", jwt)
+				_this.$store.commit("SET_USERINFO", userInfo)
 
-              // 获取
+				// 获取
               console.log(_this.$store.getters.getUser)
 
               _this.$router.push("/blogs")
@@ -81,37 +81,9 @@
 </script>
 
 <style scoped>
-  .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
 
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-  }
-
-  .el-main {
-    /*background-color: #E9EEF3;*/
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
-
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-
-  .el-container:nth-child(7) .el-aside {
+body >
+.el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
 
