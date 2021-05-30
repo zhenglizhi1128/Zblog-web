@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Header from '@/components/Header';
+import Header from "@/components/Header"
 
 export default {
     name: 'App.vue',
@@ -23,8 +23,12 @@ export default {
 
 <style>
 #app {
-    max-width: 960px;
-    margin: 0 auto;
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
 }
 </style>
 

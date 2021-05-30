@@ -1,19 +1,19 @@
 <template>
-    <div>
-        <el-container>
-            <el-aside width="200px">
-                <el-menu class="el-menu-vertical-demo">
-                    <el-submenu index="1">
-                        <template slot="title">
-                            <i class="el-icon-s-operation"></i>
-                            <span>系统管理</span>
-                        </template>
-                        <router-link :to="{ name: 'CentralControl' }">
-                            <el-menu-item index="1-1">
+	<div id="id_set">
+		<el-container>
+			<el-aside width="200px">
+				<el-menu class="el-menu-vertical-demo">
+					<el-submenu index="1">
+						<template slot="title">
+							<i class="el-icon-s-operation"></i>
+							<span>系统管理</span>
+						</template>
+						<router-link :to="{ name: 'CentralControl' }">
+							<el-menu-item index="1-1">
                                 <template slot="title">
                                     <i class="el-icon-odometer"></i>
-                                    仪表盘
-                                </template>
+									中控台
+								</template>
                             </el-menu-item>
                         </router-link>
 
@@ -99,10 +99,13 @@ export default {
 </script>
 <style>
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
-.router-link-active {
-    text-decoration: none;
+#id_set {
+	position: absolute;
+	left: 10%;
+	width: 80%;
+	margin: 0 auto;
 }
 </style>

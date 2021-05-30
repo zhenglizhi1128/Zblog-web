@@ -55,9 +55,10 @@ const routes = [
         }
     },
     {
-        path: '/system',
-        name: 'System',
-        component: () => import('../views/System.vue'),
+        path: "/system",
+        name: "System",
+        redirect: { name: "CentralControl" },
+        component: () => import("../views/System.vue"),
         meta: {
             title: "系统设置",
             requireAuth: true
@@ -129,7 +130,7 @@ const routes = [
                 path: "/centralControl",
                 name: "CentralControl",
                 meta: {
-                    title: "仪表盘",
+                    title: "中控台",
                     requireAuth: true
                 },
                 component: () => import("../views/system/CentralControl.vue")
