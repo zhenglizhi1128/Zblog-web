@@ -1,5 +1,5 @@
 import axios from "axios"
-import {Loading, Message} from "element-ui"
+import { Loading, Message } from "element-ui"
 
 const service = axios.create({
     baseURL: "http://localhost:8090", // 本地做反向代理
@@ -35,8 +35,6 @@ service.interceptors.request.use(
             request.data = JSON.stringify(request.data)
         }
         const token = localStorage.getItem("token")
-        console.log("token")
-        console.log(token)
         if (token) {
             request.headers["Authorization"] = token
         }

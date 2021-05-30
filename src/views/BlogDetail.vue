@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import 'github-markdown-css'
+import "github-markdown-css"
 
 export default {
     name: "BlogDetail.vue",
@@ -29,18 +29,16 @@ export default {
         }
     },
     created() {
-        const blogId = this.$route.params.blogId;
-        this.$axios.get('/blog/blog', {params: {'id': blogId}}).then(res => {
-            const blog = res.data.data;
-            this.blog.id = blog.id;
-            this.blog.title = blog.title;
-            var MardownIt = require("markdown-it");
-            var md = new MardownIt();
-
-            var result = md.render(blog.blogContent.content);
-            this.blog.content = result;
-        })
-    }
+		const blogId = this.$route.params.blogId
+		this.$http.get("/blog/blog", { id: blogId }).then(res => {
+			const blog = res.data
+			this.blog.id = blog.id
+			this.blog.title = blog.title
+			const MarkdownIt = require("markdown-it")
+			const md = new MarkdownIt()
+			this.blog.content = md.render(blog.blogContent.content)
+		})
+	}
 }
 </script>
 

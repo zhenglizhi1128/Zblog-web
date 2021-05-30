@@ -22,16 +22,17 @@
 </template>
 
 <script>
-import 'mavon-editor/dist/markdown/github-markdown.min.css'
+import "mavon-editor/dist/markdown/github-markdown.min.css"
+
 export default {
-    name: "BlogEdit.vue",
-    data() {
-        return {
-            ruleForm: {
-                id: '',
-                title: '',
-                description: '',
-                content: ''
+	name: "BlogEdit.vue",
+	data() {
+		return {
+			ruleForm: {
+				id: "",
+				title: "",
+				description: "",
+				content: ""
             },
             rules: {
                 title: [
@@ -51,18 +52,14 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$axios.post('/blog/edit', this.ruleForm, {
-                        /* headers: {
-                          "Authorization": localStorage.getItem("token")
-                        } */
-                    }).then(res => {
-                        this.$alert('操作成功', '提示', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                                this.$router.push("/blogs")
-                            }
-                        });
-                    })
+					this.$http.post("/blog/edit", this.ruleForm).then(res => {
+						this.$alert("操作成功", "提示", {
+							confirmButtonText: "确定",
+							callback: action => {
+								this.$router.push("/blogs")
+							}
+						})
+					})
                 } else {
                     return false;
                 }
@@ -75,18 +72,18 @@ export default {
     created() {
         const blogId = this.$route.params.blogId
         if (blogId) {
-            this.$axios.get('/blog/blog', {
-                params: {
-                    'id': blogId
-                }
-            }).then(res => {
-                const blog = res.data.data
-                this.ruleForm.id = blog.id
-                this.ruleForm.title = blog.title
-                this.ruleForm.description = blog.description
-                this.ruleForm.content = blog.blogContent.content
-            })
-        }
+			this.$http.get("/blog/blog",
+				{
+					"id": blogId
+				}
+			).then((res) => {
+				const blog = res.data
+				this.ruleForm.id = blog.id
+				this.ruleForm.title = blog.title
+				this.ruleForm.description = blog.description
+				this.ruleForm.content = blog.blogContent.content
+			})
+		}
 
     }
 }

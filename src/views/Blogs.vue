@@ -21,15 +21,16 @@
                 </el-timeline-item>
             </el-timeline>
             <el-pagination
-                class="mpage"
-                background
-                layout="prev, pager, next"
-                :current-page="currentPage"
-                :page-size="pageSize"
-                :total="total"
-                @current-change="page"
-            >
-            </el-pagination>
+				class="mpage"
+				background
+				:hide-on-single-page="value"
+				layout="prev, pager, next"
+				:current-page="currentPage"
+				:page-size="pageSize"
+				:total="total"
+				@current-change="page"
+			>
+			</el-pagination>
         </div>
     </div>
 </template>
@@ -39,28 +40,28 @@ export default {
     name: 'Blogs.vue',
     data() {
         return {
-            reverse: true,
-            blogs: [],
-            currentPage: 1,
-            total: 0,
-            pageSize: 5,
-        };
+			reverse: true,
+			value: true,
+			blogs: [],
+			currentPage: 1,
+			total: 0,
+			pageSize: 5
+		};
     },
     methods: {
         page(currentPage) {
-            this.$axios
-                .get('/blog/blogs', {
-                    params: {
-                        currentPage: currentPage,
-                        pageSize: this.pageSize,
-                    },
-                })
+			this.$http
+                .get("/blog/blogs", {
+						currentPage: currentPage,
+						pageSize: this.pageSize
+					}
+				)
                 .then((res) => {
-                    this.blogs = res.data.data.list;
-                    this.currentPage = res.data.data.pageNum;
-                    this.total = res.data.data.total;
-                    this.pageSize = res.data.data.pageSize;
-                });
+					this.blogs = res.data.list
+					this.currentPage = res.data.pageNum
+					this.total = res.data.total
+					this.pageSize = res.data.pageSize
+				});
         },
         detail(blogId) {
             const new1 = this.$router.resolve({name: 'BlogDetail', params: {blogId: blogId}});

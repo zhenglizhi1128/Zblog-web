@@ -78,20 +78,12 @@ export default {
 </script>
 
 <style scoped>
-
-body >
-.el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-}
-
 .mlogo {
     height: 60%;
     margin-top: 10px;
 }
-
 .demo-ruleForm {
     max-width: 500px;
     margin: 0 auto;
 }
-
 </style>
