@@ -1,15 +1,19 @@
 <template>
     <div>
-        <el-button
-            size="medium"
-            type="primary"
-            icon="el-icon-plus"
-            @click="addlabel()"
-        >新增
-        </el-button>
-        <el-divider></el-divider>
-        <el-table :data="tableData" stripe style="width: 100%">
-            <template slot="empty">
+		<el-breadcrumb separator-class="el-icon-arrow-right">
+			<el-breadcrumb-item :to="{ path: '/centralControl' }">首页</el-breadcrumb-item>
+			<el-breadcrumb-item>标签管理</el-breadcrumb-item>
+		</el-breadcrumb>
+		<el-button
+			size="medium"
+			type="primary"
+			icon="el-icon-plus"
+			@click="addlabel()"
+		>新增
+		</el-button>
+		<el-divider></el-divider>
+		<el-table :data="tableData" stripe style="width: 100%">
+			<template slot="empty">
                 <div>暂无数据</div>
             </template>
             <el-table-column label="名称" align="center" width="150">
@@ -17,30 +21,30 @@
                     <div slot="reference" class="name-wrapper">
                         <span style="margin-left: 10px">{{ scope.row.name }}</span>
                     </div>
-                </template>
-            </el-table-column>
-            <el-table-column label="添加日期" align="center" width="150">
-                <template slot-scope="scope">
-                    <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">
+				</template>
+			</el-table-column>
+			<el-table-column label="添加日期" align="center" width="150">
+				<template slot-scope="scope">
+					<i class="el-icon-time"></i>
+					<span style="margin-left: 10px">
                         {{ scope.row.createTime | dateformat("YYYY-MM-DD") }}
                     </span>
-                </template>
-            </el-table-column>
-            <el-table-column label="修改日期" align="center" width="150">
-                <template slot-scope="scope">
-                    <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">
+				</template>
+			</el-table-column>
+			<el-table-column label="修改日期" align="center" width="150">
+				<template slot-scope="scope">
+					<i class="el-icon-time"></i>
+					<span style="margin-left: 10px">
                         {{ scope.row.updateTime | dateformat("YYYY-MM-DD") }}
                     </span>
-                </template>
-            </el-table-column>
+				</template>
+			</el-table-column>
 
-            <el-table-column align="center" label="操作">
-                <template slot-scope="scope">
-                    <el-button
-                        size="mini"
-                        icon="el-icon-edit"
+			<el-table-column align="center" label="操作">
+				<template slot-scope="scope">
+					<el-button
+						size="mini"
+						icon="el-icon-edit"
                         @click="modifylabel(scope.row.id, scope.row.name)"
                     >编辑
                     </el-button>

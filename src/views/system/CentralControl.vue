@@ -7,7 +7,7 @@
 		<el-row :gutter="24">
 			<el-col :span="24">
 				<el-card shadow="always">
-					<span>文章总数</span><span style="float: right; padding: 3px 0">x</span>
+					<span>文章总数</span><span style="float: right; padding: 3px 0">{{ blogNum }}</span>
 				</el-card>
 			</el-col>
 		</el-row>
@@ -15,26 +15,45 @@
 		<el-row :gutter="24">
 			<el-col :span="12">
 				<el-card shadow="always">
-					<span>用户数量</span><span style="float: right; padding: 3px 0">x</span>
+					<span>用户数量</span><span style="float: right; padding: 3px 0">{{ userNum }}</span>
 				</el-card>
 			</el-col>
 			<el-col :span="12">
 				<el-card shadow="always">
-					<span>留言板数量</span><span style="float: right; padding: 3px 0">x</span>
+					<span>留言板数量</span><span style="float: right; padding: 3px 0">{{ messageNum }}</span>
 				</el-card>
 			</el-col>
 		</el-row>
 		<br>
 		<el-collapse>
-			<el-collapse-item title="最新文章" name="1">
-				<div>
-					<el-link type="info">信息链接</el-link>
+			<el-collapse-item name="1">
+				<template slot="title">
+					<div style="width: 100%;">
+						<h3 style="text-align:center">
+							最新文章
+						</h3>
+					</div>
+				</template>
+				<div v-for="(blog,index) in blogs" :key="index">
+					<el-card>
+						<el-link :underline="false">
+							<h4>{{ blog.title }}</h4>
+						</el-link>
+						<el-link :underline="false">
+							<p>{{ blog.description }}</p>
+						</el-link>
+					</el-card>
 				</div>
-				<el-divider></el-divider>
 			</el-collapse-item>
-			<el-collapse-item title="最新留言" name="4">
+			<el-collapse-item name="2">
+				<template slot="title">
+					<div style="width: 100%;">
+						<h3 style="text-align:center">
+							最新留言
+						</h3>
+					</div>
+				</template>
 				<el-button type="text" @click="open">点击打开 Message Box</el-button>
-				<el-divider></el-divider>
 			</el-collapse-item>
 		</el-collapse>
 	</div>
@@ -44,7 +63,13 @@
 export default {
 	name: "CentralControl.vue",
 	data() {
-		return {}
+		return {
+			blogNum: "",
+			userNum: "",
+			messageNum: 0,
+			blogs: []
+
+		}
 	},
 	methods: {
 		open() {
@@ -57,10 +82,21 @@ export default {
 					})
 				}
 			})
+		},
+		initialize() {
+			this.$http
+				.get("/central/initialize")
+				.then((res) => {
+					this.blogNum = res.data.blogNum
+					this.userNum = res.data.userNum
+					/*this.messageNum=res.data.messageNum;*/
+					this.blogs = res.data.blogs
+				})
 		}
+
 	},
 	created() {
-
+		this.initialize()
 	}
 }
 </script>

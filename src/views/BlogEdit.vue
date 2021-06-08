@@ -10,7 +10,7 @@
                     <el-input type="textarea" v-model="ruleForm.description"></el-input>
                 </el-form-item>
                 <el-form-item label="内容" prop="content">
-                    <mavon-editor class="editor" v-model="ruleForm.content"></mavon-editor>
+                    <mavon-editor class="editor" v-model="ruleForm.blogContent.content"></mavon-editor>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -32,8 +32,14 @@ export default {
 				id: "",
 				title: "",
 				description: "",
-				content: ""
-            },
+				user: {
+					id: this.$store.getters.getUser.id
+				},
+				blogContent: {
+					id: "",
+					content: ""
+				}
+			},
             rules: {
                 title: [
                     {required: true, message: '请输入标题', trigger: 'blur'},
@@ -43,15 +49,17 @@ export default {
                     {required: true, message: '请输入摘要', trigger: 'blur'}
                 ],
                 content: [
-                    {trequired: true, message: '请输入内容', trigger: 'blur'}
+					{ required: false, message: "请输入内容", trigger: "blur" }
                 ]
             }
         };
     },
     methods: {
         submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
+			console.log(this.ruleForm.blogContent.content)
+			console.log("-------")
+			this.$refs[formName].validate((valid) => {
+				if (valid) {
 					this.$http.post("/blog/edit", this.ruleForm).then(res => {
 						this.$alert("操作成功", "提示", {
 							confirmButtonText: "确定",
@@ -81,7 +89,7 @@ export default {
 				this.ruleForm.id = blog.id
 				this.ruleForm.title = blog.title
 				this.ruleForm.description = blog.description
-				this.ruleForm.content = blog.blogContent.content
+				this.ruleForm.blogContent.content = blog.blogContent.content
 			})
 		}
 

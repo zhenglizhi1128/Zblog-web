@@ -104,8 +104,8 @@ a {
 
 #id_set {
 	position: absolute;
-	left: 10%;
-	width: 80%;
+	left: 5%;
+	width: 90%;
 	margin: 0 auto;
 }
 </style>
