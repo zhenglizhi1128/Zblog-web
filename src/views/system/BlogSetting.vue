@@ -5,26 +5,28 @@
 			<el-breadcrumb-item>文章管理</el-breadcrumb-item>
 		</el-breadcrumb>
 		<el-divider></el-divider>
-		<div>
-			<div style="margin-top: 20px">
+		<div style="width: 100%;">
+			<span style="margin-top: 20px">
 				状态:
-				<el-radio-group @change="stateChange" v-model="radioState" size="small">
-					<el-radio-button label="全部"></el-radio-button>
-					<el-radio-button label="广州"></el-radio-button>
-					<el-radio-button label="深圳"></el-radio-button>
+				<el-radio-group @change="stateChange" v-model="status" size="medium">
+					<el-radio-button label= -100 >全部</el-radio-button>
+					<el-radio-button label=1 >启用</el-radio-button>
+					<el-radio-button label=0 >禁用</el-radio-button>
 				</el-radio-group>
-			</div>
-			<div>
-				<el-select v-model="value" filterable placeholder="请选择">
+			</span>
+			<span>
+        标签：
+				<el-select v-model="labelId" filterable placeholder="请选择">
 					<el-option
 						v-for="item in options"
-						:key="item.value"
-						:label="item.label"
-						:value="item.value">
+						:key="item.id"
+						:label="item.name"
+						:value="item.id">
 					</el-option>
 				</el-select>
-			</div>
-			<span style="left: 100px">
+			</span>
+      &nbsp;&nbsp;&nbsp;
+			<span>
 				<el-input placeholder="输入文章标题" v-model="title" class="input-with-select">
 					<el-button slot="append" icon="el-icon-search"></el-button>
 				</el-input>
@@ -38,34 +40,31 @@ export default {
     name: "BlogSetting.vue",
     data() {
 		return {
-			radioState: "全部",
+      status:-100,
 			title: "",
-			options: [{
-				value: "选项1",
-				label: "黄金糕"
-			}, {
-				value: "选项2",
-				label: "双皮奶"
-			}, {
-				value: "选项3",
-				label: "蚵仔煎"
-			}, {
-				value: "选项4",
-				label: "龙须面"
-			}, {
-				value: "选项5",
-				label: "北京烤鸭"
-			}],
-			value: ""
+			options: [],
+      labelId:""
 		}
 	},
 	methods: {
 		stateChange() {
-			console.log(this.radioState)
-		}
+      this.initialize(this.labelId,this.status,this.title);
+		},
+    initialize(labelId,status,title) {
+      const params = {
+        labelId:labelId,
+        status:status,
+        title:title
+      }
+      this.$http.get("/blog/set/blogs",params).then((res) => {
+        const data = res.data;
+        console.log(data.labels);
+        this.options=data.labels;
+      })
+    }
 	},
 	created() {
-
+    this.initialize(-100,this.status,this.title);
 	}
 }
 </script>
