@@ -25,7 +25,7 @@
 				class="page"
 				background
 				:hide-on-single-page="value"
-				layout="prev, pager, next"
+				layout="total,prev, pager, next"
 				:current-page="currentPage"
 				:page-size="pageSize"
 				:total="total"

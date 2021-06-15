@@ -47,6 +47,7 @@ service.interceptors.request.use(
 // 后置拦截
 service.interceptors.response.use(
     (response) => {
+        console.log("2222222")
         if (loadingInstance !== null) {
             loadingInstance.close()
             loadingInstance = null
@@ -55,11 +56,12 @@ service.interceptors.response.use(
         if (res.code === 200) {
             return Promise.resolve(res)
         } else {
-            Message.error(res.message, {duration: 3 * 1000})
+            Message.error({ message: res.message, duration: 3 * 1000 })
             return Promise.reject(res.message)
         }
     },
     (error) => {
+        console.log("1111111111")
         if (error && error.response) {
             error.message = error.response.data.message
         } else {
@@ -68,8 +70,8 @@ service.interceptors.response.use(
                 Message.error("服务器响应超时，请刷新当前页")
             }
             error.message = "连接服务器失败"
+            Message.error({ message: error.message, duration: 3 * 1000 })
         }
-        Element.Message.error(error.message, {duration: 3 * 1000})
         return Promise.reject(error)
     }
 )

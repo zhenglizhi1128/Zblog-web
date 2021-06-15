@@ -78,8 +78,9 @@ export default {
         }
     },
     created() {
-        const blogId = this.$route.params.blogId
-        if (blogId) {
+		console.log(this.$store.getters.getUser.id)
+		const blogId = this.$route.params.blogId
+		if (blogId) {
 			this.$http.get("/blog/blog",
 				{
 					"id": blogId
