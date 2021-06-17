@@ -1,9 +1,10 @@
 import axios from "axios"
 import { Loading, Message } from "element-ui"
+import router from "../router"
 
 const service = axios.create({
     baseURL: "http://localhost:8090", // 本地做反向代理
-    timeout: 5000,
+    timeout: 60000,
     withCredentials: true // 是否允许带cookie这些
 })
 
@@ -20,19 +21,17 @@ service.interceptors.request.use(
                 text: "拼命加载中..."
             })
         }
-
         if (request.method === "post") {
             request.headers["Content-Type"] = "application/json;charset=UTF-8"
-            for (var key in request.data) {
-                if (request.data[key] === "") {
-                    delete request.data[key]
+            for (var key in request.params) {
+                if (request.params[key] === "") {
+                    delete request.params[key]
                 }
             }
-            request.data = JSON.stringify(request.data)
+            request.params = JSON.stringify(request.params)
         } else {
             request.headers["Content-Type"] =
                 "application/x-www-form-urlencoded;charset=UTF-8"
-            request.data = JSON.stringify(request.data)
         }
         const token = localStorage.getItem("token")
         if (token) {
@@ -47,7 +46,6 @@ service.interceptors.request.use(
 // 后置拦截
 service.interceptors.response.use(
     (response) => {
-        console.log("2222222")
         if (loadingInstance !== null) {
             loadingInstance.close()
             loadingInstance = null
@@ -56,12 +54,14 @@ service.interceptors.response.use(
         if (res.code === 200) {
             return Promise.resolve(res)
         } else {
+            if (res.code === 401){
+                router.push("/")
+            }
             Message.error({ message: res.message, duration: 3 * 1000 })
             return Promise.reject(res.message)
         }
     },
     (error) => {
-        console.log("1111111111")
         if (error && error.response) {
             error.message = error.response.data.message
         } else {
@@ -70,7 +70,11 @@ service.interceptors.response.use(
                 Message.error("服务器响应超时，请刷新当前页")
             }
             error.message = "连接服务器失败"
-            Message.error({ message: error.message, duration: 3 * 1000 })
+        }
+        Message.error({ message: error.message, duration: 3 * 1000 })
+        if (loadingInstance !== null) {
+            loadingInstance.close()
+            loadingInstance = null
         }
         return Promise.reject(error)
     }

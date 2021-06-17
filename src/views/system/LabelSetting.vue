@@ -4,6 +4,7 @@
 			<el-breadcrumb-item :to="{ path: '/centralControl' }">首页</el-breadcrumb-item>
 			<el-breadcrumb-item>标签管理</el-breadcrumb-item>
 		</el-breadcrumb>
+		<br>
 		<el-button
 			size="medium"
 			type="primary"
