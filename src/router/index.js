@@ -69,14 +69,15 @@ const routes = [
                 component: () => import("../views/system/LabelSetting.vue")
             },
             {
-                path: "/userSetting",
-                name: "UserSetting",
+                path: '/userHomeSet',
+                name: 'UserHomeSetting',
+                component: () => import('../views/system/UserHomeSetting.vue'),
                 meta: {
-                    title: "用户管理",
+                    title: "用户设置",
                     requireAuth: true
-                },
-                component: () => import("../views/system/UserSetting.vue")
-            }, {
+                }
+            },
+            {
                 path: "/siteSetting",
                 name: "SiteSetting",
                 meta: {

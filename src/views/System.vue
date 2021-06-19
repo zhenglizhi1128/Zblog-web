@@ -2,7 +2,10 @@
 	<div id="id_set">
 		<el-container>
 			<el-aside width="200px">
-				<el-menu class="el-menu-vertical-demo">
+				<el-menu
+					:default-active="this.$route.path"
+					class="el-menu-vertical-demo"
+					>
 					<el-submenu index="1">
 						<template slot="title">
 							<i class="el-icon-s-operation"></i>
@@ -62,7 +65,7 @@
                             </el-menu-item>
                         </router-link>
 
-                        <router-link :to="{ name: 'UserSetting' }">
+                        <router-link :to="{ name: 'UserHomeSetting' }">
                             <el-menu-item index="1-7">
                                 <template slot="title">
                                     <i class="el-icon-user"></i>
@@ -92,7 +95,8 @@
 export default {
     name: "System.vue",
     data() {
-        return {}
+        return {
+		}
     },
     methods: {}
 }
