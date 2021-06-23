@@ -4,7 +4,7 @@ const http = {
     /**
      * methods: 请求
      * @param url 请求地址
-     * @param params 请求参数
+     * @param params 是即将与请求一起发送的 URL 参数
      */
     get(url, params) {
         const config = {
@@ -19,6 +19,7 @@ const http = {
             method: "post",
             url: url
         }
+        //data 是作为请求主体被发送的数据 只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'
         if (params) config.data = params
         return service(config)
     },
@@ -27,7 +28,7 @@ const http = {
             method: "put",
             url: url
         }
-        if (params) config.params = params
+        if (params) config.data = params
         return service(config)
     },
     delete(url, params) {

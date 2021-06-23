@@ -60,7 +60,7 @@ const routes = [
         },
         children: [
             {
-                path: "/labelsetting",
+                path: "/labelSetting",
                 name: "LabelSetting",
                 meta: {
                     title: "标签管理",
@@ -69,11 +69,38 @@ const routes = [
                 component: () => import("../views/system/LabelSetting.vue")
             },
             {
-                path: '/userHomeSet',
-                name: 'UserHomeSetting',
-                component: () => import('../views/system/UserHomeSetting.vue'),
+                path: '/userSetting',
+                name: 'UserSetting',
+                component: () => import('../views/system/UserSetting.vue'),
                 meta: {
                     title: "用户设置",
+                    requireAuth: true
+                }
+            },
+            {
+                path: '/onlineUserSet',
+                name: 'OnlineUserSetting',
+                component: () => import('../views/system/OnlineUserSetting.vue'),
+                meta: {
+                    title: "在线用户设置",
+                    requireAuth: true
+                }
+            },
+            {
+                path: '/roleSet',
+                name: 'RoleSetting',
+                component: () => import('../views/system/RoleSetting.vue'),
+                meta: {
+                    title: "角色设置",
+                    requireAuth: true
+                }
+            },
+            {
+                path: '/permissionSet',
+                name: 'PermissionSetting',
+                component: () => import('../views/system/PermissionSetting.vue'),
+                meta: {
+                    title: "权限设置",
                     requireAuth: true
                 }
             },
@@ -99,7 +126,7 @@ const routes = [
                 path: "/commentSetting",
                 name: "CommentSetting",
                 meta: {
-                    title: "公告设置",
+                    title: "评论设置",
                     requireAuth: true
                 },
                 component: () => import("../views/system/CommentSetting.vue")

@@ -21,17 +21,11 @@ service.interceptors.request.use(
                 text: "拼命加载中..."
             })
         }
-        if (request.method === "post") {
+        if (request.method === "post" || request.method === "put" ) {
             request.headers["Content-Type"] = "application/json;charset=UTF-8"
-            for (var key in request.params) {
-                if (request.params[key] === "") {
-                    delete request.params[key]
-                }
-            }
-            request.params = JSON.stringify(request.params)
+            request.data = JSON.stringify(request.data)
         } else {
-            request.headers["Content-Type"] =
-                "application/x-www-form-urlencoded;charset=UTF-8"
+            request.headers["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
         }
         const token = localStorage.getItem("token")
         if (token) {
